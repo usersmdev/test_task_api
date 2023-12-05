@@ -3,25 +3,43 @@
 require_once('../vendor/autoload.php');
 
 use App\Rest;
+
 $data = new Rest('https://jsonplaceholder.org/posts');
 $posts = $data->getData();
-?>
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
-    </head>
-    <body>
 
 
-<?php
-foreach ($posts as $post) {
-    echo $post['title'].'<br>';
-}
+require_once('../include/head.php');
+//var_dump($posts);
 ?>
-    </body>
+
+<div class="container">
+    <div class="news_block">
+        <?php
+        foreach ($posts as $post):?>
+            <?php
+            $date = str_replace('/', '-', $post['updatedAt']);
+            $date = str_replace(' ', 'T', $date);
+            $date = date("d-m-Y", strtotime($date));
+            $countCategory = new \App\CountCategory($posts, $post['category']);
+            ?>
+            <div class="news_item">
+                <div class="block_title">
+                    <h1><?= $post['title'] ?></h1>
+                    <div class="date_publish"><?= $date ?></div>
+                </div>
+                <div class="block_category">
+                    <div class="category">Категория: <?= $post['category'] ?>(<?= $countCategory->getCountCategory() ?>)
+                    </div>
+                    <div class="favorit">Добавить в избранное <i class="fa fa-heart" aria-hidden="true"> </i></div>
+                </div>
+                <div class="content_block">
+                    <div class="image"><img src="<?= $post['thumbnail'] ?>" alt="<?= $post['title'] ?>"></div>
+                    <div class="content"><?= $post['content'] ?></div>
+                </div>
+            </div>
+        <?php
+        endforeach; ?>
+    </div>
+</div>
+</body>
 </html>
