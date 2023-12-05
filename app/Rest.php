@@ -18,8 +18,13 @@ class Rest
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         $res = curl_exec($ch);
         $res = json_decode($res, JSON_UNESCAPED_UNICODE);
+        curl_exec($ch);
+        if (curl_errno($ch)) {
+            $res = curl_error($ch);
+        }
         curl_close($ch);
         return $res;
     }
