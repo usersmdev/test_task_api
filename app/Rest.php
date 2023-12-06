@@ -20,6 +20,7 @@ class Rest
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         $res = curl_exec($ch);
+        sleep(mt_rand(1, 5));
         $res = json_decode($res, JSON_UNESCAPED_UNICODE);
         curl_exec($ch);
         if (curl_errno($ch)) {
