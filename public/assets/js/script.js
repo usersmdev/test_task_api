@@ -1,17 +1,5 @@
-// const elForm = document.querySelector('[name="favorites"]');
-// const elPostID = elForm.querySelector('[name="postID"]');
-// const elCategoryID = elForm.querySelector('[name="categoryId"]');
-// const elResult = document.querySelector('#result');
-// const requestURL = elForm.action;
-let favorite = document.querySelectorAll('.favorite')
-function addPreloader() {
-    // if the preloader doesn't already exist, add one to the page
-    if(!document.querySelector('#preloader')) {
-        var preloaderHTML = 'Загрузка ...';
-        document.querySelector('body').innerHTML += preloaderHTML;
-    }
-}
 
+let favorite = document.querySelectorAll('.favorite')
 function removePreloader() {
     // select the preloader element
     var preloader = document.querySelector('#preloader');
